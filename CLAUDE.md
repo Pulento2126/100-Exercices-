@@ -1,129 +1,129 @@
 # CLAUDE.md
 
-Guidance for AI assistants (Claude Code et al.) working in this repository.
+Guide à destination des assistants IA (Claude Code et autres) travaillant sur ce dépôt.
 
-## Project Overview
+## Vue d'ensemble du projet
 
-**Seirul-lo SSP Hub** — an interactive single-page React app that catalogues the 100 *Situations Simulatrices Préférentielles* (SSP) of Francisco Seirul-lo's football training methodology. Users can browse exercises by specificity level, search the catalogue, view distribution charts, and chat with a Gemini-powered AI assistant for session-planning advice.
+**Seirul-lo SSP Hub** — une application React monopage interactive qui catalogue les 100 *Situations Simulatrices Préférentielles* (SSP) de la méthodologie d'entraînement footballistique de Francisco Seirul-lo. Les utilisateurs peuvent parcourir les exercices par niveau de spécificité, rechercher dans le catalogue, consulter des graphiques de distribution et discuter avec un assistant IA propulsé par Gemini pour la planification de séances.
 
-The app is **entirely in French** — UI copy, AI prompts, and exercise names. Preserve that when editing UI strings.
+L'application est **entièrement en français** — textes de l'interface, prompts IA et noms d'exercices. Conserver cette langue lors des modifications de l'interface.
 
-The app was bootstrapped from Google AI Studio (see `README.md`).
+L'application a été initialement générée depuis Google AI Studio (voir `README.md`).
 
-## Tech Stack
+## Stack technique
 
-- **React 19.2** (`react`, `react-dom`) with `React.StrictMode`
-- **TypeScript 5.8** with `react-jsx` JSX transform, `moduleResolution: bundler`, `noEmit: true`
-- **Vite 6** as the dev server and bundler (`@vitejs/plugin-react`)
-- **Recharts 3** for the analytics charts
-- **@google/genai 1.34** for the Gemini API client
-- **Tailwind CSS via CDN** (`https://cdn.tailwindcss.com`) — *not* installed via npm. Theme is configured inline in `index.html`.
-- **Browser ESM via `esm.sh` import map** declared in `index.html` for `react`, `react-dom`, `@google/genai`, and `recharts`. The same packages are *also* listed in `package.json` so Vite can resolve them locally.
+- **React 19.2** (`react`, `react-dom`) avec `React.StrictMode`
+- **TypeScript 5.8** avec la transformation JSX `react-jsx`, `moduleResolution: bundler`, `noEmit: true`
+- **Vite 6** comme serveur de développement et bundler (`@vitejs/plugin-react`)
+- **Recharts 3** pour les graphiques d'analyse
+- **@google/genai 1.34** pour le client de l'API Gemini
+- **Tailwind CSS via CDN** (`https://cdn.tailwindcss.com`) — *non* installé via npm. Le thème est configuré inline dans `index.html`.
+- **ESM navigateur via une import map `esm.sh`** déclarée dans `index.html` pour `react`, `react-dom`, `@google/genai` et `recharts`. Les mêmes paquets sont *aussi* listés dans `package.json` afin que Vite puisse les résoudre localement.
 
-There is no test framework, no linter config, and no formatter config in this repo.
+Il n'y a ni framework de tests, ni configuration de linter, ni configuration de formateur dans ce dépôt.
 
-## Commands
+## Commandes
 
 ```bash
-npm install        # install dependencies
-npm run dev        # start Vite dev server on http://0.0.0.0:3000
-npm run build      # production build to dist/
-npm run preview    # preview the production build
+npm install        # installer les dépendances
+npm run dev        # démarrer le serveur Vite sur http://0.0.0.0:3000
+npm run build      # build de production vers dist/
+npm run preview    # prévisualiser le build de production
 ```
 
-`GEMINI_API_KEY` must be set in `.env.local` (see `README.md`). `vite.config.ts` reads it via `loadEnv` and exposes it to the client as both `process.env.API_KEY` and `process.env.GEMINI_API_KEY`.
+`GEMINI_API_KEY` doit être défini dans `.env.local` (voir `README.md`). `vite.config.ts` le lit via `loadEnv` et l'expose au client à la fois sous `process.env.API_KEY` et `process.env.GEMINI_API_KEY`.
 
-## Repository Layout
+## Arborescence du dépôt
 
 ```
 .
-├── index.html              # HTML shell, Tailwind CDN + theme, import map
-├── index.tsx               # React entry — mounts <App /> into #root
-├── App.tsx                 # Top-level layout: Header, Pyramid, search, charts, tables, AI
-├── constants.tsx           # LEVELS metadata and ALL_EXERCISES catalogue (100 items)
-├── types.ts                # Exercise, LevelID enum, LevelMetadata
+├── index.html              # Coquille HTML, Tailwind CDN + thème, import map
+├── index.tsx               # Point d'entrée React — monte <App /> dans #root
+├── App.tsx                 # Mise en page racine : Header, Pyramid, recherche, charts, tables, IA
+├── constants.tsx           # Métadonnées LEVELS et catalogue ALL_EXERCISES (100 entrées)
+├── types.ts                # Exercise, enum LevelID, LevelMetadata
 ├── components/
-│   ├── Header.tsx          # Hero header with gradient title
-│   ├── Pyramid.tsx         # 5-level clickable pyramid (scrolls to level)
-│   ├── AnalysisCharts.tsx  # Recharts BarChart + AreaChart of distribution & NE curve
-│   ├── ExerciseTable.tsx   # Per-level scrollable table
-│   └── AssistantAI.tsx     # Floating chat widget calling Gemini
+│   ├── Header.tsx          # En-tête héros avec titre en dégradé
+│   ├── Pyramid.tsx         # Pyramide cliquable à 5 niveaux (scroll vers le niveau)
+│   ├── AnalysisCharts.tsx  # BarChart + AreaChart Recharts (distribution & courbe NE)
+│   ├── ExerciseTable.tsx   # Table déroulante par niveau
+│   └── AssistantAI.tsx     # Widget de chat flottant appelant Gemini
 ├── services/
-│   └── geminiService.ts    # getAIAssistantResponse() — Gemini API wrapper
-├── metadata.json           # AI Studio app metadata
-├── vite.config.ts          # Vite config + env injection + @ alias
+│   └── geminiService.ts    # getAIAssistantResponse() — wrapper API Gemini
+├── metadata.json           # Métadonnées de l'application AI Studio
+├── vite.config.ts          # Config Vite + injection des env + alias @
 ├── tsconfig.json
 └── package.json
 ```
 
-There is no `src/` directory — TS/TSX files live at the repo root and in `components/` and `services/`.
+Il n'y a pas de répertoire `src/` — les fichiers TS/TSX résident à la racine du dépôt et dans `components/` et `services/`.
 
-## Domain Model
+## Modèle de domaine
 
-Defined in `types.ts`:
+Défini dans `types.ts` :
 
 ```ts
 interface Exercise {
-  r: number;   // Rank (1–100, ordered by descending specificity)
-  n: string;   // Name (French)
-  ne: number;  // Niveau d'Exigence — specificity score 1.0–10.0
-  l: number;   // Level id (1–5)
+  r: number;   // Rang (1–100, classés par spécificité décroissante)
+  n: string;   // Nom (en français)
+  ne: number;  // Niveau d'Exigence — score de spécificité 1.0–10.0
+  l: number;   // Identifiant du niveau (1–5)
 }
 
 enum LevelID {
-  COMPETITION = 1,  // NE 8.0–10.0  (red / bg-danger)
+  COMPETITION = 1,  // NE 8.0–10.0  (rouge / bg-danger)
   SPECIAL     = 2,  // NE 6.0–7.9   (orange)
-  DIRIGE      = 3,  // NE 4.5–5.9   (yellow)
+  DIRIGE      = 3,  // NE 4.5–5.9   (jaune)
   GENERAL     = 4,  // NE 3.0–4.4   (cyan / bg-accent)
-  GENERIQUE   = 5,  // NE 1.0–2.9   (gray)
+  GENERIQUE   = 5,  // NE 1.0–2.9   (gris)
 }
 ```
 
-The single source of truth for the catalogue is `constants.tsx` (`ALL_EXERCISES` and `LEVELS`). When adding/correcting exercises, keep them sorted by descending `ne` within their level, keep `r` contiguous (1–100), and keep level boundaries consistent with the `range` strings in `LEVELS`.
+La source unique de vérité pour le catalogue est `constants.tsx` (`ALL_EXERCISES` et `LEVELS`). Lors de l'ajout ou de la correction d'exercices, garder un tri par `ne` décroissant à l'intérieur de chaque niveau, conserver des `r` contigus (1–100) et maintenir la cohérence des bornes de niveau avec les chaînes `range` de `LEVELS`.
 
-The short field names (`r`, `n`, `ne`, `l`) are intentional — they appear inline in `JSON.stringify(ALL_EXERCISES)` inside the Gemini system prompt, so renaming them propagates into the AI context.
+Les noms de champs courts (`r`, `n`, `ne`, `l`) sont intentionnels — ils apparaissent en clair dans `JSON.stringify(ALL_EXERCISES)` à l'intérieur du prompt système Gemini, donc les renommer se propage dans le contexte de l'IA.
 
-## Styling Conventions
+## Conventions de style
 
-- **All styling is Tailwind utility classes** loaded from the CDN. There is no `tailwind.config.js` file — the config lives in a `<script>` block in `index.html`. To add a custom color or font, edit that block.
-- **Custom theme colors** (used throughout): `primary` `#0f172a`, `secondary` `#1e293b`, `accent` `#06b6d4`, `highlight` `#8b5cf6`, `danger` `#f43f5e`, `success` `#10b981`, `textMain` `#f8fafc`, `textMuted` `#94a3b8`.
-- Each `LevelMetadata.color` is a Tailwind background class (e.g. `bg-danger`, `bg-orange-500`). `ExerciseTable.tsx` and `AnalysisCharts.tsx` derive border/text colors by string-replacing `bg-` — keep new level colors in a form that survives that transformation, or update the consumers.
-- Font is `Inter` loaded from Google Fonts in `index.html`.
-- The pyramid clip-path utility class `.pyramid-level` is defined in `index.html`'s `<style>` block, not in Tailwind.
+- **Tout le style passe par les classes utilitaires Tailwind** chargées depuis le CDN. Il n'existe pas de fichier `tailwind.config.js` — la configuration vit dans un bloc `<script>` à l'intérieur de `index.html`. Pour ajouter une couleur ou une police personnalisée, modifier ce bloc.
+- **Couleurs personnalisées du thème** (utilisées partout) : `primary` `#0f172a`, `secondary` `#1e293b`, `accent` `#06b6d4`, `highlight` `#8b5cf6`, `danger` `#f43f5e`, `success` `#10b981`, `textMain` `#f8fafc`, `textMuted` `#94a3b8`.
+- Chaque `LevelMetadata.color` est une classe de fond Tailwind (par ex. `bg-danger`, `bg-orange-500`). `ExerciseTable.tsx` et `AnalysisCharts.tsx` en dérivent les couleurs de bordure et de texte par remplacement de chaîne sur `bg-` — garder les nouvelles couleurs de niveau dans une forme qui survit à cette transformation, ou bien mettre à jour les consommateurs.
+- La police est `Inter`, chargée depuis Google Fonts dans `index.html`.
+- La classe utilitaire de clip-path `.pyramid-level` est définie dans le bloc `<style>` de `index.html`, pas dans Tailwind.
 
-## Path Aliases
+## Alias de chemins
 
-`vite.config.ts` defines `@` → repo root, mirrored in `tsconfig.json` (`paths: { "@/*": ["./*"] }`). In practice the codebase uses **relative imports** (`./components/Header`, `../constants`) — keep doing that for consistency unless you have a reason to switch.
+`vite.config.ts` définit `@` → racine du dépôt, miroité dans `tsconfig.json` (`paths: { "@/*": ["./*"] }`). En pratique, le code utilise des **imports relatifs** (`./components/Header`, `../constants`) — continuer ainsi par cohérence sauf raison particulière de changer.
 
-## Gemini Integration
+## Intégration Gemini
 
-`services/geminiService.ts`:
+`services/geminiService.ts` :
 
-- Instantiates `new GoogleGenAI({ apiKey: process.env.API_KEY || '' })` at module load. Both `API_KEY` and `GEMINI_API_KEY` are injected by Vite's `define`.
-- `getAIAssistantResponse(userPrompt)` calls `ai.models.generateContent` with model `'gemini-3-flash-preview'`, a French system instruction, `temperature: 0.7`, and returns `response.text`. Errors are caught and a French fallback message is returned.
-- The system instruction embeds `JSON.stringify(ALL_EXERCISES.slice(0, 50))` — only the first 50 exercises are sent. If you change the catalogue size or want to expand the context, update this slice.
-- `components/AssistantAI.tsx` is a floating chat button (`fixed bottom-6 right-6`) that opens a 500px panel and calls `getAIAssistantResponse` directly — no streaming, no chat history is sent to Gemini (each call is independent).
+- Instancie `new GoogleGenAI({ apiKey: process.env.API_KEY || '' })` au chargement du module. À la fois `API_KEY` et `GEMINI_API_KEY` sont injectés par le `define` de Vite.
+- `getAIAssistantResponse(userPrompt)` appelle `ai.models.generateContent` avec le modèle `'gemini-3-flash-preview'`, une instruction système en français, `temperature: 0.7`, et retourne `response.text`. Les erreurs sont attrapées et un message de repli en français est renvoyé.
+- L'instruction système embarque `JSON.stringify(ALL_EXERCISES.slice(0, 50))` — seuls les 50 premiers exercices sont envoyés. Si vous changez la taille du catalogue ou souhaitez étendre le contexte, mettre à jour cette tranche.
+- `components/AssistantAI.tsx` est un bouton de chat flottant (`fixed bottom-6 right-6`) qui ouvre un panneau de 500 px et appelle directement `getAIAssistantResponse` — pas de streaming, aucun historique de conversation n'est envoyé à Gemini (chaque appel est indépendant).
 
-If you change the Gemini model id, double-check it against the current `@google/genai` SDK — the literal `gemini-3-flash-preview` already in the file may not be a real model id and could be the source of API errors.
+Si vous changez l'identifiant du modèle Gemini, vérifiez-le par rapport au SDK `@google/genai` actuel — la valeur littérale `gemini-3-flash-preview` déjà présente dans le fichier pourrait ne pas être un identifiant de modèle réel et constituer la source d'erreurs API.
 
-## App Shell & Layout
+## Coquille et mise en page
 
-`App.tsx` owns the only piece of state: `searchTerm`. When `searchTerm` is non-empty, the level tables collapse into a single filtered results table; otherwise it renders one `ExerciseTable` per level. `Pyramid` calls `scrollToLevel('level-${id}')` which scrolls to the corresponding `ExerciseTable` (each table sets `id={level-${level.id}}` and `scroll-mt-24`).
+`App.tsx` détient l'unique morceau d'état : `searchTerm`. Quand `searchTerm` n'est pas vide, les tables par niveau s'effondrent en une seule table de résultats filtrés ; sinon, un `ExerciseTable` est rendu par niveau. `Pyramid` appelle `scrollToLevel('level-${id}')` qui fait défiler vers la `ExerciseTable` correspondante (chaque table fixe `id={level-${level.id}}` et `scroll-mt-24`).
 
-There is **no router** — it's a single page. There is **no global state library** — `useState` / `useMemo` is sufficient.
+Il n'y a **pas de routeur** — c'est une page unique. Il n'y a **pas de bibliothèque de gestion d'état globale** — `useState` / `useMemo` suffisent.
 
-## Conventions for AI Assistants
+## Conventions pour les assistants IA
 
-- **Preserve French copy** in the UI and in the Gemini system prompt. Don't translate to English unless explicitly asked.
-- **Don't add a Tailwind PostCSS pipeline** unless asked — the project deliberately uses the CDN build. Adding `tailwindcss` to `package.json` would be a meaningful architectural change that needs user buy-in.
-- **Don't move files into a `src/` directory** without being asked; the flat layout is intentional and matches the AI Studio scaffold.
-- **Keep `ALL_EXERCISES` as the single source of truth** for the catalogue. Anything that displays exercise data should derive from it (filter/map), not maintain a parallel list.
-- **Don't introduce a test framework, ESLint, or Prettier** unless asked — none exist today and adding them is a project-wide decision.
-- **Don't commit `.env.local`** or any file containing a real `GEMINI_API_KEY`.
-- **Use the dedicated tools** (Read/Edit/Write/Glob/Grep) rather than shell equivalents (`cat`, `sed`, `find`, `grep`).
+- **Conserver le texte en français** dans l'interface et dans le prompt système Gemini. Ne pas traduire en anglais sauf demande explicite.
+- **Ne pas ajouter de pipeline PostCSS Tailwind** sans demande — le projet utilise délibérément le build CDN. Ajouter `tailwindcss` à `package.json` serait un changement architectural significatif qui nécessite l'accord de l'utilisateur.
+- **Ne pas déplacer les fichiers dans un répertoire `src/`** sans qu'on le demande ; la mise à plat est intentionnelle et correspond au scaffold AI Studio.
+- **Garder `ALL_EXERCISES` comme source unique de vérité** pour le catalogue. Tout ce qui affiche des données d'exercices doit en dériver (filter/map), et non maintenir une liste parallèle.
+- **Ne pas introduire de framework de tests, d'ESLint ou de Prettier** sans demande — aucun n'existe aujourd'hui et leur ajout est une décision à l'échelle du projet.
+- **Ne pas committer `.env.local`** ni aucun fichier contenant une vraie `GEMINI_API_KEY`.
+- **Utiliser les outils dédiés** (Read/Edit/Write/Glob/Grep) plutôt que leurs équivalents shell (`cat`, `sed`, `find`, `grep`).
 
-## Git Workflow for This Session
+## Workflow Git pour cette session
 
-- Active development branch: **`claude/add-claude-documentation-5E29h`**.
-- Develop on that branch, commit with descriptive messages, and push with `git push -u origin claude/add-claude-documentation-5E29h`.
-- Do not push to `main` and do not open a PR unless explicitly asked.
+- Branche de développement active : **`claude/add-claude-documentation-5E29h`**.
+- Développer sur cette branche, committer avec des messages descriptifs et pousser avec `git push -u origin claude/add-claude-documentation-5E29h`.
+- Ne pas pousser sur `main` et ne pas ouvrir de PR sauf demande explicite.
