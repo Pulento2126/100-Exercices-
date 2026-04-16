@@ -1,23 +1,20 @@
 
-export interface Exercise {
-  r: number; // Rank
-  n: string; // Name
-  ne: number; // Specificity Score (Niveau d'Exigence)
-  l: number; // Level (1-5)
+export interface CatalogueItem {
+  id: string;
+  nom: string;
+  photo: string; // URL or base64 data URI
+  dateStockage: string; // ISO date string (YYYY-MM-DD)
+  quantiteDisponible: number;
+  seuilAlerte: number;
 }
 
-export enum LevelID {
-  COMPETITION = 1,
-  SPECIAL = 2,
-  DIRIGE = 3,
-  GENERAL = 4,
-  GENERIQUE = 5
+export interface HistoriqueEntry {
+  id: string;
+  materielId: string; // Foreign key to CatalogueItem.id
+  typeAction: 'Sortie chantier' | 'Retour stock';
+  quantite: number;
+  dateHeure: string; // ISO datetime string
+  nomEmprunteur: string;
 }
 
-export interface LevelMetadata {
-  id: LevelID;
-  name: string;
-  range: string;
-  color: string;
-  description: string;
-}
+export type ViewType = 'dashboard' | 'inventaire' | 'mouvement' | 'ajouter';

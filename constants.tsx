@@ -1,152 +1,145 @@
 
-import { Exercise, LevelMetadata, LevelID } from './types';
+import { CatalogueItem, HistoriqueEntry } from './types';
 
-export const LEVELS: LevelMetadata[] = [
+export const INITIAL_CATALOGUE: CatalogueItem[] = [
   {
-    id: LevelID.COMPETITION,
-    name: "Niveau Compétition",
-    range: "8.0 - 10.0",
-    color: "bg-danger",
-    description: "Exercices reproduisant le chaos et la structure complète du match. Priorité à la tactique collective et à la charge mentale."
+    id: 'mat-001',
+    nom: 'Perceuse sans fil',
+    photo: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&h=300&fit=crop',
+    dateStockage: '2024-01-15',
+    quantiteDisponible: 3,
+    seuilAlerte: 2,
   },
   {
-    id: LevelID.SPECIAL,
-    name: "Niveau Spécial",
-    range: "6.0 - 7.9",
-    color: "bg-orange-500",
-    description: "Situations avec opposition réelle, buts et directionnalité, mais espaces/effectifs réduits (Jeu de Position, SSG)."
+    id: 'mat-002',
+    nom: 'Marteau piqueur',
+    photo: 'https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=300&h=300&fit=crop',
+    dateStockage: '2024-02-10',
+    quantiteDisponible: 1,
+    seuilAlerte: 2,
   },
   {
-    id: LevelID.DIRIGE,
-    name: "Niveau Dirigé",
-    range: "4.5 - 5.9",
-    color: "bg-yellow-500",
-    description: "Jeux de possession et Rondos. L'opposition existe mais la structure est modifiée (souvent sans orientation/buts)."
+    id: 'mat-003',
+    nom: 'Sacs de ciment (50kg)',
+    photo: 'https://images.unsplash.com/photo-1518709766631-a6a7f45921c3?w=300&h=300&fit=crop',
+    dateStockage: '2024-03-05',
+    quantiteDisponible: 25,
+    seuilAlerte: 10,
   },
   {
-    id: LevelID.GENERAL,
-    name: "Niveau Général",
-    range: "3.0 - 4.4",
-    color: "bg-accent",
-    description: "Circuits techniques et analytiques. Faible spécificité, pas d'opposition."
+    id: 'mat-004',
+    nom: 'Casques de chantier',
+    photo: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=300&h=300&fit=crop',
+    dateStockage: '2024-01-20',
+    quantiteDisponible: 8,
+    seuilAlerte: 5,
   },
   {
-    id: LevelID.GENERIQUE,
-    name: "Niveau Générique",
-    range: "1.0 - 2.9",
-    color: "bg-gray-500",
-    description: "Décontextualisé. Force en salle, course."
-  }
+    id: 'mat-005',
+    nom: 'Echafaudage tubulaire',
+    photo: 'https://images.unsplash.com/photo-1590644365607-1c5e64559e32?w=300&h=300&fit=crop',
+    dateStockage: '2024-04-01',
+    quantiteDisponible: 2,
+    seuilAlerte: 3,
+  },
+  {
+    id: 'mat-006',
+    nom: 'Niveau laser',
+    photo: 'https://images.unsplash.com/photo-1581783898377-1c85bf937427?w=300&h=300&fit=crop',
+    dateStockage: '2024-03-15',
+    quantiteDisponible: 4,
+    seuilAlerte: 2,
+  },
+  {
+    id: 'mat-007',
+    nom: 'Brouette de chantier',
+    photo: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=300&h=300&fit=crop',
+    dateStockage: '2024-02-28',
+    quantiteDisponible: 5,
+    seuilAlerte: 3,
+  },
+  {
+    id: 'mat-008',
+    nom: 'Disqueuse 230mm',
+    photo: 'https://images.unsplash.com/photo-1530124566582-a45a7e3f2039?w=300&h=300&fit=crop',
+    dateStockage: '2024-05-10',
+    quantiteDisponible: 1,
+    seuilAlerte: 2,
+  },
 ];
 
-export const ALL_EXERCISES: Exercise[] = [
-  // Level 1: Compétition (1-9)
-  { r: 1, n: "Match de compétition", ne: 10.0, l: 1 },
-  { r: 2, n: "Match d'entraînement", ne: 10.0, l: 1 },
-  { r: 3, n: "Match Situation 9v9 + 2 Jokers", ne: 8.9, l: 1 },
-  { r: 4, n: "Match Situation 8v8 + 2 Jokers", ne: 8.9, l: 1 },
-  { r: 5, n: "Match Situation 7v7 + 2 Jokers", ne: 8.4, l: 1 },
-  { r: 6, n: "Match Situation 9v7 + 2 Jokers", ne: 8.1, l: 1 },
-  { r: 7, n: "Match Situation 7v7 + 1 Joker + 2 Gardiens", ne: 8.1, l: 1 },
-  { r: 8, n: "Jeu de Position Grand 10v10 + 2 Jokers", ne: 8.1, l: 1 },
-  { r: 9, n: "Match Situation 8v8 + 2 Jokers + 2 Gardiens", ne: 8.0, l: 1 },
-  
-  // Level 2: Spécial (10-53)
-  { r: 10, n: "Match Réduit 5v5 + 2 Gardiens", ne: 7.9, l: 2 },
-  { r: 11, n: "Match Situation 10v10", ne: 7.8, l: 2 },
-  { r: 12, n: "Match Réduit 6+4 v 6+2 + 2 Gardiens", ne: 7.8, l: 2 },
-  { r: 13, n: "Match Réduit 4v4 + 1 Joker + 2 Gardiens", ne: 7.8, l: 2 },
-  { r: 14, n: "Jeu de Position Grand", ne: 7.8, l: 2 },
-  { r: 15, n: "Match Réduit 6v6 + 1 Joker + 2 Gardiens", ne: 7.6, l: 2 },
-  { r: 16, n: "Match Réduit 3v3 + 2 Gardiens", ne: 7.6, l: 2 },
-  { r: 17, n: "Match Réduit Alterné 6+4 v 6+4 + 2 Gardiens", ne: 7.6, l: 2 },
-  { r: 18, n: "Match Réduit 5v3 + 2 Jokers + 2 Gardiens", ne: 7.5, l: 2 },
-  { r: 19, n: "Jeu de Position Grand 10v10 + Petits Buts", ne: 7.5, l: 2 },
-  { r: 20, n: "Jeu de Position Grand 10v10", ne: 7.5, l: 2 },
-  { r: 21, n: "Match Situation 10v8 + 1 Gardien + Petits Buts", ne: 7.4, l: 2 },
-  { r: 22, n: "Match Situation 8v7 + 1 Gardien + Petits Buts", ne: 7.4, l: 2 },
-  { r: 23, n: "Match Réduit 1v4 + 1 (3v2) + 2 Gardiens", ne: 7.4, l: 2 },
-  { r: 24, n: "Match Réduit 6v6 + 1 Joker + 2 Gardiens", ne: 7.3, l: 2 },
-  { r: 25, n: "Match Réduit Alterné 5+4 v 5+4 + 2 Gardiens", ne: 7.3, l: 2 },
-  { r: 26, n: "Match Réduit 2+4 v 2+4 + 2 Gardiens", ne: 7.3, l: 2 },
-  { r: 27, n: "Match Situation 9v10 + 2 Gardiens", ne: 7.2, l: 2 },
-  { r: 28, n: "Match Situation 10v8 + 1 Gardien", ne: 7.2, l: 2 },
-  { r: 29, n: "Match Réduit 4+1 v 4+1 + 2 Gardiens", ne: 7.2, l: 2 },
-  { r: 30, n: "Jeu de Position 9v9 + 1 Joker + 2 Gardiens", ne: 7.2, l: 2 },
-  { r: 31, n: "Match Réduit 3+1 v 2v1 + 2 Gardiens", ne: 7.1, l: 2 },
-  { r: 32, n: "Match Réduit 2v2 + 1 Joker + 2 Gardiens", ne: 7.1, l: 2 },
-  { r: 33, n: "Match Réduit Alterné 5v5 + 4 + 1 + 2 Gardiens", ne: 7.1, l: 2 },
-  { r: 34, n: "Match Réduit 2v2 + Petits Buts", ne: 7.1, l: 2 },
-  { r: 35, n: "Jeu de Position Moyen 5v5 + Petits Buts", ne: 7.1, l: 2 },
-  { r: 36, n: "Jeu d'Échauffement (Contextualisé)", ne: 7.1, l: 2 },
-  { r: 37, n: "Match Court 3v2 + 1 Joker + 2 Gardiens", ne: 7.0, l: 2 },
-  { r: 38, n: "Match Réduit 5v5 (2v1 / 2v2 / 1v2)", ne: 6.9, l: 2 },
-  { r: 39, n: "Jeu d'Échauffement (Rotations)", ne: 6.9, l: 2 },
-  { r: 40, n: "Jeu de Lignes 4+2 v 4+2", ne: 6.9, l: 2 },
-  { r: 41, n: "Jeu de Position Moyen 5v5 + 1 Joker + 2 Gardiens", ne: 6.7, l: 2 },
-  { r: 42, n: "Match Réduit 3+1 v 3+1 + 2 Gardiens", ne: 6.6, l: 2 },
-  { r: 43, n: "Match Réduit 3v2 / 2v1 + 2 Gardiens", ne: 6.6, l: 2 },
-  { r: 44, n: "Match Réduit 2+1 v 2+1 + 2 Gardiens", ne: 6.5, l: 2 },
-  { r: 45, n: "Match Réduit 6v5", ne: 6.4, l: 2 },
-  { r: 46, n: "Match Situation 7v7 + 1 Joker + 2 Gardiens", ne: 6.3, l: 2 },
-  { r: 47, n: "Match Réduit 2v1 + 1 Joker + Petits Buts", ne: 6.3, l: 2 },
-  { r: 48, n: "Match Réduit 6v6 + 6 + 2 Gardiens", ne: 6.2, l: 2 },
-  { r: 49, n: "Jeu de Position Petit 4v4 + 4 + Petits Buts", ne: 6.2, l: 2 },
-  { r: 50, n: "Match 'Basket' (Variante)", ne: 6.2, l: 2 },
-  { r: 51, n: "Jeu Position Moyen 6v6+3 (3v2/3v2/3v2)", ne: 6.1, l: 2 },
-  { r: 52, n: "Evolutions Offensives (Attaques placées)", ne: 6.1, l: 2 },
-  { r: 53, n: "Match Réduit 4+2 v 4+2 + 2 Gardiens", ne: 6.0, l: 2 },
-
-  // Level 3: Dirigé (54-93)
-  { r: 54, n: "Match Réduit 1v1 + Petits Buts", ne: 5.8, l: 3 },
-  { r: 55, n: "Match Réduit 1v2 / 2v1 + Petits Buts", ne: 5.8, l: 3 },
-  { r: 56, n: "Jeu Position Grand 8v8 + 2 (3v2/4v4/3v2)", ne: 5.8, l: 3 },
-  { r: 57, n: "Jeu Position Petit 4v4 + 3 (2v1/3v2/2v1)", ne: 5.8, l: 3 },
-  { r: 58, n: "Jeu par Vagues 3v2 / 2v1 + Petits Buts", ne: 5.8, l: 3 },
-  { r: 59, n: "Jeu Position Grand 9v9 + 1 Joker", ne: 5.7, l: 3 },
-  { r: 60, n: "Jeu Position Grand 9v9 + 2 Jokers", ne: 5.7, l: 3 },
-  { r: 61, n: "Conservation 5+4 v 5+4", ne: 5.7, l: 3 },
-  { r: 62, n: "Jeu Position Grand 7v7 + 3 Jokers", ne: 5.6, l: 3 },
-  { r: 63, n: "Jeu Position Grand 7v7 + 3 (3v2/4v3/3v2)", ne: 5.6, l: 3 },
-  { r: 64, n: "Jeu Position Grand 8v8 + 4 Jokers", ne: 5.6, l: 3 },
-  { r: 65, n: "Jeu Position Moyen 6v6 + 2 Jokers", ne: 5.6, l: 3 },
-  { r: 66, n: "Rondo 2 Espaces 10v4 / 10vX", ne: 5.6, l: 3 },
-  { r: 67, n: "Jeu Position Moyen 6v6 + 4 Jokers", ne: 5.5, l: 3 },
-  { r: 68, n: "Jeu Position Petit 4v4 + 3 Jokers", ne: 5.5, l: 3 },
-  { r: 69, n: "Conservation 5v3 à 2 Espaces", ne: 5.5, l: 3 },
-  { r: 70, n: "Conservation 6v3 à 2 Espaces", ne: 5.5, l: 3 },
-  { r: 71, n: "Circuit Dirigé + 2v1", ne: 5.5, l: 3 },
-  { r: 72, n: "Jeu Position Moyen 5v5 + 2 Jokers", ne: 5.5, l: 3 },
-  { r: 73, n: "Conservation 5+5 v 5+5", ne: 5.5, l: 3 },
-  { r: 74, n: "Futbol Tenis (Tennis-Ballon)", ne: 5.3, l: 3 },
-  { r: 75, n: "Conservation 10v10 + 3 Jokers", ne: 5.2, l: 3 },
-  { r: 76, n: "Jeu Position 4v4 + 2 Jokers", ne: 5.1, l: 3 },
-  { r: 77, n: "Rondo 6v2 à 2 Espaces", ne: 5.1, l: 3 },
-  { r: 78, n: "Jeu Position Petit 3v3 + 2 Jokers", ne: 5.1, l: 3 },
-  { r: 79, n: "Conservation 11v11 + 4 Jokers", ne: 5.0, l: 3 },
-  { r: 80, n: "Jeu Position Petit 4v4 + 3 (Circulaire)", ne: 5.0, l: 3 },
-  { r: 81, n: "Circuit Dirigé Centres/Frappes", ne: 5.0, l: 3 },
-  { r: 82, n: "Circuit Dirigé Finition", ne: 5.0, l: 3 },
-  { r: 83, n: "Jeu Position 3v3 + 3 Jokers", ne: 5.0, l: 3 },
-  { r: 84, n: "Rondo 4v2", ne: 4.9, l: 3 },
-  { r: 85, n: "Rondo 6v2", ne: 4.9, l: 3 },
-  { r: 86, n: "Rondo 8v2", ne: 4.9, l: 3 },
-  { r: 87, n: "Circuit Dirigé Centres/Frappes 2", ne: 4.9, l: 3 },
-  { r: 88, n: "Rondo 5v2", ne: 4.8, l: 3 },
-  { r: 89, n: "Rondo 7v3 à 2 Espaces", ne: 4.8, l: 3 },
-  { r: 90, n: "Rondo Circulaire Central", ne: 4.8, l: 3 },
-  { r: 91, n: "Rondos Vides 4v2 / 4v2 / 4v0", ne: 4.7, l: 3 },
-  { r: 92, n: "Rondo 4v1", ne: 4.7, l: 3 },
-  { r: 93, n: "Rondo 6v2 à 2 Espaces (Variante)", ne: 4.7, l: 3 },
-
-  // Level 4: Général (94-98)
-  { r: 94, n: "Jeu d'Échauffement 'Kindball'", ne: 3.6, l: 4 },
-  { r: 95, n: "Circuit Technique (10 joueurs)", ne: 3.2, l: 4 },
-  { r: 96, n: "Circuit Technique (7 joueurs)", ne: 3.2, l: 4 },
-  { r: 97, n: "Circuit Technique en Y", ne: 3.2, l: 4 },
-  { r: 98, n: "Circuit Technique (6 joueurs)", ne: 3.0, l: 4 },
-
-  // Level 5: Générique (99-100)
-  { r: 99, n: "Circuit Technique Course (Sans ballon)", ne: 1.1, l: 5 },
-  { r: 100, n: "Travail de Force en Salle (Gymnase)", ne: 1.0, l: 5 }
+export const INITIAL_HISTORIQUE: HistoriqueEntry[] = [
+  {
+    id: 'hist-001',
+    materielId: 'mat-002',
+    typeAction: 'Sortie chantier',
+    quantite: 1,
+    dateHeure: '2024-06-10T08:30:00',
+    nomEmprunteur: 'Jean Dupont',
+  },
+  {
+    id: 'hist-002',
+    materielId: 'mat-003',
+    typeAction: 'Sortie chantier',
+    quantite: 10,
+    dateHeure: '2024-06-11T09:00:00',
+    nomEmprunteur: 'Marie Martin',
+  },
+  {
+    id: 'hist-003',
+    materielId: 'mat-005',
+    typeAction: 'Sortie chantier',
+    quantite: 1,
+    dateHeure: '2024-06-12T07:45:00',
+    nomEmprunteur: 'Pierre Lefevre',
+  },
 ];
+
+export function generateId(): string {
+  return Date.now().toString(36) + Math.random().toString(36).substring(2, 9);
+}
+
+export function formatDate(dateStr: string): string {
+  return new Date(dateStr).toLocaleDateString('fr-FR', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  });
+}
+
+export function formatDateTime(dateStr: string): string {
+  return new Date(dateStr).toLocaleString('fr-FR', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+}
+
+const STORAGE_KEY_CATALOGUE = 'gestostock_catalogue';
+const STORAGE_KEY_HISTORIQUE = 'gestostock_historique';
+
+export function loadCatalogue(): CatalogueItem[] {
+  try {
+    const data = localStorage.getItem(STORAGE_KEY_CATALOGUE);
+    if (data) return JSON.parse(data);
+  } catch {}
+  return INITIAL_CATALOGUE;
+}
+
+export function saveCatalogue(items: CatalogueItem[]): void {
+  localStorage.setItem(STORAGE_KEY_CATALOGUE, JSON.stringify(items));
+}
+
+export function loadHistorique(): HistoriqueEntry[] {
+  try {
+    const data = localStorage.getItem(STORAGE_KEY_HISTORIQUE);
+    if (data) return JSON.parse(data);
+  } catch {}
+  return INITIAL_HISTORIQUE;
+}
+
+export function saveHistorique(entries: HistoriqueEntry[]): void {
+  localStorage.setItem(STORAGE_KEY_HISTORIQUE, JSON.stringify(entries));
+}

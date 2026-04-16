@@ -1,5 +1,5 @@
 {
-  "name": "Seirul-lo SSP Hub",
-  "description": "Une plateforme interactive pour explorer et analyser les 100 Situations Simulatrices Préférentielles (SSP) basées sur la méthodologie de Francisco Seirul-lo pour l'entraînement du football.",
+  "name": "GestoStock - Gestion Matériel BTP",
+  "description": "Application de gestion de stock et de traçabilité pour le matériel de bâtiment. Catalogue, historique des mouvements, alertes de stock bas et formulaire de sorties/retours.",
   "requestFramePermissions": []
 }
